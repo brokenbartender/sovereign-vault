@@ -35,7 +35,7 @@ import math
 from dataclasses import dataclass
 from enum import Enum, auto
 
-__version__ = "1.0.0"
+__version__ = "1.0.1"
 __all__ = [
     "VaultSession",
     "VaultSealBreach",
