@@ -9,17 +9,26 @@ description = "Reversible PII tokenization for LLM pipelines — send documents 
 readme = "README.md"
 requires-python = ">=3.10"
 license = {text = "MIT"}
-keywords = ["privacy", "pii", "llm", "tokenization", "gdpr", "hipaa", "ai", "redaction"]
+keywords = [
+    "privacy", "pii", "llm", "tokenization", "gdpr", "hipaa",
+    "ai", "redaction", "nlp", "ner", "anthropic", "gemini",
+    "ollama", "gliner", "mcp", "agentic-ai", "data-privacy",
+    "compliance", "forensics", "sovereign-ai"
+]
 classifiers = [
     "Development Status :: 5 - Production/Stable",
     "Intended Audience :: Developers",
+    "Intended Audience :: Legal Industry",
+    "Intended Audience :: Information Technology",
     "License :: OSI Approved :: MIT License",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Topic :: Security",
+    "Topic :: Security :: Cryptography",
     "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Text Processing :: Linguistic",
 ]
 dependencies = []
 
@@ -29,9 +38,11 @@ llm = ["ollama>=0.1.0"]
 all = ["gliner>=0.1.0", "ollama>=0.1.0"]
 
 [project.urls]
-Homepage = "https://github.com/brokenbartender/sovereign-vault"
+Homepage = "https://lexipro.online"
+Documentation = "https://github.com/brokenbartender/sovereign-vault#readme"
 Repository = "https://github.com/brokenbartender/sovereign-vault"
 Issues = "https://github.com/brokenbartender/sovereign-vault/issues"
+"Part of" = "https://lexipro.online"
 
 [tool.setuptools.packages.find]
 where = ["."]
