@@ -40,6 +40,7 @@ __all__ = [
     "VaultSession",
     "VaultSealBreach",
     "VaultReconstructionDegraded",
+    "coverage_report",
     "ReconMode",
     "SealMode",
     "VaultEntry",
@@ -457,6 +458,49 @@ class VaultSession:
             }
             for k, v in self._store.items()
         ]
+
+    def coverage_report(self) -> dict:
+        """Per-layer entity counts, confidence distribution, and detection coverage.
+
+        Call after tokenize() and before sending to cloud to assess detection
+        quality. Answers: how confident should I be that all PII was caught?
+        """
+        self._assert_alive()
+        by_layer: dict[str, dict] = {}
+        confidence_buckets = {
+            "high (>0.85)":      0,
+            "medium (0.50-0.85)": 0,
+            "low (<0.50)":       0,
+        }
+        for entry in self._store.values():
+            layer = entry.source_layer
+            if layer not in by_layer:
+                by_layer[layer] = {"count": 0, "labels": {}}
+            by_layer[layer]["count"] += 1
+            by_layer[layer]["labels"][entry.label] = (
+                by_layer[layer]["labels"].get(entry.label, 0) + 1
+            )
+            c = entry.confidence
+            if c > 0.85:
+                confidence_buckets["high (>0.85)"] += 1
+            elif c >= 0.50:
+                confidence_buckets["medium (0.50-0.85)"] += 1
+            else:
+                confidence_buckets["low (<0.50)"] += 1
+
+        layers_active = list(by_layer.keys())
+        return {
+            "total_entities_vaulted":   len(self._store),
+            "layers_active":            layers_active,
+            "by_layer":                 by_layer,
+            "confidence_distribution":  confidence_buckets,
+            "recommendation": (
+                "Consider enabling GLiNER (pip install sovereign-vault[ner]) "
+                "for contextual NER detection."
+                if "gliner" not in layers_active and "ollama" not in layers_active
+                else "All available detection layers active."
+            ),
+        }
 
     def destroy(self):
         """Best-effort memory wipe. Overwrites real values before clearing."""
