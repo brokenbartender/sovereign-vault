@@ -222,6 +222,32 @@ Issues and PRs welcome. The detection layer system is designed for extension —
 
 ---
 
+## Compliance Disclaimer
+
+Sovereign Vault is a **technical tool** that assists with PII handling in LLM
+pipelines. It is not a legal compliance product and does not constitute legal
+advice.
+
+**GDPR / HIPAA / CCPA:** Tokenizing PII before sending it to a cloud model
+reduces exposure but does not by itself satisfy the requirements of any data
+protection regulation. Your compliance obligations depend on your specific use
+case, data classification, and organizational policies. Consult qualified legal
+counsel before deploying in regulated environments.
+
+**What sovereign-vault does:**
+- Replaces PII with HMAC-bound tokens so cloud AI never receives raw values
+- Provides an audit trail of all vaulted entities (no real values in log)
+- Wipes vault from RAM on `destroy()` call
+
+**What sovereign-vault does NOT do:**
+- Guarantee detection of all PII in all languages and formats
+- Provide legal indemnification or certification
+- Replace a data classification policy or DPO review
+- Encrypt data at rest (vault is RAM-only by design)
+
+
+---
+
 ## License
 
 MIT — see [LICENSE](LICENSE).
