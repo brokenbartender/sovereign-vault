@@ -195,6 +195,33 @@ Issues and PRs welcome. The detection layer system is designed for extension —
 
 ---
 
+## Known Limitations
+
+| Limitation | Impact | Mitigation |
+|------------|--------|------------|
+| RAM-only storage | Vault lost if process crashes mid-pipeline | Call `vault.destroy()` in a `finally` block; checkpoint vault keys externally if needed |
+| Probabilistic NER (GLiNER/Ollama) | Novel PII formats may not be detected | Use `coverage_report()` after tokenize to assess detection quality |
+| Regex layer only on plain text | HTML entities, encoded chars may slip through | Pre-normalize input with `html.unescape()` before tokenizing |
+| Session-scoped tokens | Same real value gets different token in different sessions | Design your pipeline to tokenize once per document, not per chunk |
+| Not a legal compliance layer | Sovereign Vault assists compliance; it cannot replace legal review | Combine with your organization's data classification policy |
+
+---
+
+## Comparison: Sovereign Vault vs. alternatives
+
+| Feature | sovereign-vault | Microsoft Presidio | AWS Comprehend PII | Simple regex redaction |
+|---------|----------------|-------------------|-------------------|----------------------|
+| Reversible tokenization | Yes | No (replace only) | No | No |
+| HMAC integrity on tokens | Yes | No | No | No |
+| Offline capable | Yes (regex layer) | Partial | No (API) | Yes |
+| Named entity detection | Yes (GLiNER + Ollama) | Yes (spaCy) | Yes (cloud) | No |
+| STRICT mode audit trail | Yes | No | No | No |
+| Cloud cost | $0 (local) | $0 (local) | Per-call | $0 |
+| Setup complexity | pip install | pip + models + server | AWS credentials | None |
+
+
+---
+
 ## License
 
 MIT — see [LICENSE](LICENSE).
