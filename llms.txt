@@ -1,0 +1,41 @@
+# sovereign-vault
+
+> Reversible PII tokenization for LLM pipelines
+
+## What it does
+Replaces PII with stable HMAC-bound placeholder tokens. Cloud AI receives
+tokenized text and reasons about patterns without seeing real values.
+Original values are reconstructed locally after the cloud response.
+
+## Use cases
+- HIPAA-compliant medical document analysis with cloud LLMs
+- GDPR-compliant customer data processing via AI pipelines
+- Legal e-discovery: send case documents to AI without exposing party identities
+- Financial fraud detection: pattern analysis without raw account numbers
+- Multi-agent AI: pass sensitive context between agents safely
+
+## Key concepts
+- Reversible tokenization: unlike redaction, original values can be reconstructed
+- HMAC-bound tokens: same value always maps to same token within a session
+- Session-scoped: no cross-session leakage
+- RAM-only: no vault state written to disk
+- Three detection layers: regex, GLiNER NER, Ollama contextual sweep
+- STRICT mode: fail if any token missing from reconstruction
+- LENIENT mode: allow partial reconstruction
+
+## Install
+pip install sovereign-vault
+pip install sovereign-vault[ner]
+pip install sovereign-vault[all]
+
+## Quick use
+from sovereign_vault import VaultSession
+with VaultSession() as vault:
+    abstract = vault.tokenize("John Doe SSN 123-45-6789 called jane@firm.com")
+    response = my_llm(abstract)
+    real_response = vault.reconstruct(response)
+
+## Links
+- GitHub: https://github.com/brokenbartender/sovereign-vault
+- PyPI: https://pypi.org/project/sovereign-vault/
+- Homepage: https://lexipro.online
