@@ -9,6 +9,7 @@ pip install sovereign-vault
 ```
 
 [![PyPI version](https://badge.fury.io/py/sovereign-vault.svg)](https://pypi.org/project/sovereign-vault/)
+[![Downloads](https://img.shields.io/pypi/dm/sovereign-vault.svg)](https://pypi.org/project/sovereign-vault/)
 [![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![CI](https://github.com/brokenbartender/sovereign-vault/actions/workflows/ci.yml/badge.svg)](https://github.com/brokenbartender/sovereign-vault/actions)
