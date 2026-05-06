@@ -1,0 +1,32 @@
+cff-version: 1.2.0
+title: sovereign-vault
+abstract: >
+  Reversible PII tokenization for LLM pipelines. Replaces sensitive values
+  with HMAC-bound placeholder tokens so cloud AI can reason about cross-entity
+  relationships without seeing real data. Three detection layers: regex,
+  GLiNER NER, and Ollama contextual sweep. GDPR and HIPAA compliant.
+message: "If you use this software, please cite it using these metadata."
+type: software
+authors:
+  - family-names: McKenzie
+    given-names: Cody
+    affiliation: Broken Arrow Entertainment LLC
+repository-code: https://github.com/brokenbartender/sovereign-vault
+url: https://lexipro.online
+license: MIT
+version: 1.0.0
+keywords:
+  - pii
+  - privacy
+  - tokenization
+  - llm
+  - gdpr
+  - hipaa
+  - redaction
+  - nlp
+  - ner
+  - gliner
+  - ollama
+  - compliance
+  - forensics
+  - agentic-ai
