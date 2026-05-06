@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "sovereign-vault"
-version = "1.0.0"
+version = "1.0.1"
 description = "Reversible PII tokenization for LLM pipelines — send documents to cloud AI without exposing real data"
 readme = "README.md"
 requires-python = ">=3.10"
