@@ -52,5 +52,8 @@ Issues = "https://github.com/brokenbartender/sovereign-vault/issues"
 where = ["."]
 include = ["sovereign_vault*"]
 
+[tool.setuptools.package-data]
+sovereign_vault = ["py.typed"]
+
 [tool.pytest.ini_options]
 testpaths = ["tests"]
