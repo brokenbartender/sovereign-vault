@@ -22,6 +22,16 @@ You have documents with names, SSNs, emails, and account numbers. You need a clo
 
 Standard redaction destroys the data permanently. The AI then can't reason about cross-entity relationships — *"the same person appears in both transactions"* becomes impossible once everything is `[REDACTED]`.
 
+### Why not just redact?
+
+| Approach | Cross-entity reasoning | Reversible | Cloud-safe | Compliance-ready |
+|----------|:---------------------:|:----------:|:----------:|:----------------:|
+| **Raw PII** | ✅ | N/A | ❌ Violation | ❌ |
+| **`[REDACTED]`** | ❌ All identity destroyed | ❌ | ✅ | ⚠️ Partial |
+| **Synthetic data** | ⚠️ Inconsistent mappings | ❌ | ✅ | ⚠️ Partial |
+| **Differential privacy** | ❌ Noise destroys fidelity | ❌ | ✅ | ✅ |
+| **sovereign-vault** | ✅ Same person = same token | ✅ | ✅ | ✅ |
+
 ## The solution
 
 Sovereign Vault replaces PII with **stable, HMAC-bound tokens** per session. The same value always maps to the same token, so AI can track relationships across a document. You reconstruct locally after the cloud call.
@@ -177,19 +187,25 @@ drop_session(sid)  # destroys and deregisters
 
 ---
 
-## Part of the LexiPro Sovereign OS
+## Part of the LexiPro Sovereign OS Ecosystem
 
-Sovereign Vault is a component of **[LexiPro](https://lexipro.online)** — a local-first agentic OS running 15 MCP servers, 228 tools, and 20 agent personas on sovereign hardware. In the full OS, it powers **Workflow O (Privacy Bridge)**: tokenize before any cloud call, reconstruct locally after, audit trail preserved.
+sovereign-vault is the **privacy layer** of [LexiPro Sovereign OS](https://lexipro.online) — a local-first agentic AI platform running 15 MCP servers, 228 tools, and 20 agent personas on sovereign hardware. In the full OS, it powers **Workflow O (Privacy Bridge)**: tokenize before any cloud call, reconstruct locally after, audit trail preserved.
+
+sovereign-vault can also function as an **MCP middleware proxy** — intercepting `tools/call`, `resources/read`, and `prompts/get` JSON-RPC 2.0 traffic to tokenize PII before it reaches any third-party LLM. See [`examples/mcp_tool_server.py`](examples/mcp_tool_server.py) for a reference implementation.
 
 Powered by:
 - **[Anthropic Claude](https://anthropic.com)** — Tier 5 reasoning backbone for multi-file analysis
 - **[Google Gemini](https://deepmind.google/technologies/gemini/)** — OSINT, research, and long-context processing
 - **[Ollama](https://ollama.ai)** — Layer 3 local LLM sweep (Gemma, Llama) for contextual entity detection
-- **[GLiNER](https://github.com/urchade/GLiNER)** — Layer 2 NLP NER for named entity recognition
+- **[GLiNER](https://github.com/urchade/GLiNER)** — Layer 2 zero-shot NLP NER for named entity recognition
+
+📖 **Documentation:** [Architecture](docs/ARCHITECTURE.md) · [Threat Model](docs/THREAT_MODEL.md) · [Compliance](docs/COMPLIANCE.md) · [Contributing](CONTRIBUTING.md) · [Changelog](CHANGELOG.md)
 
 ---
 
 ## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for development setup, testing guidelines, and security boundaries.
 
 Issues and PRs welcome. The detection layer system is designed for extension — add new regex patterns to `REGEX_PATTERNS`, new GLiNER entity types to `_GLINER_TYPES`, or swap the Ollama model via `ollama_model` parameter.
 
