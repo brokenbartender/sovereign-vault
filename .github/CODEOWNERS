@@ -1,0 +1,8 @@
+# Default owner for everything in this repo.
+* @brokenbartender
+
+# Security-critical paths get explicit ownership.
+/sovereign_vault/session.py   @brokenbartender
+/sovereign_vault/proxy.py     @brokenbartender
+/SECURITY.md                  @brokenbartender
+/.github/                     @brokenbartender
