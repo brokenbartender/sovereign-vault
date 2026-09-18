@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "sovereign-vault"
-version = "1.0.1"
+version = "1.1.0"
 description = "Reversible PII tokenization for LLM pipelines — send documents to cloud AI without exposing real data"
 readme = "README.md"
 requires-python = ">=3.10"
@@ -35,7 +35,11 @@ dependencies = []
 [project.optional-dependencies]
 ner = ["gliner>=0.1.0"]
 llm = ["ollama>=0.1.0"]
-all = ["gliner>=0.1.0", "ollama>=0.1.0"]
+mcp = ["mcp>=0.1.0"]
+all = ["gliner>=0.1.0", "ollama>=0.1.0", "mcp>=0.1.0"]
+
+[project.scripts]
+sovereign-vault = "sovereign_vault.cli:main"
 
 [project.urls]
 Homepage = "https://lexipro.online"
@@ -47,3 +51,6 @@ Issues = "https://github.com/brokenbartender/sovereign-vault/issues"
 [tool.setuptools.packages.find]
 where = ["."]
 include = ["sovereign_vault*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
